@@ -1,7 +1,7 @@
 {
   "name": "hubot-device-module",
   "description": "A hubot script that does the things",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": " <Robbins Cleozier>",
   "license": "MIT",
 
