@@ -169,7 +169,7 @@ module.exports = function(robot) {
     });
 
     robot.respond(/(devices)/i, function(msg) {
-      var devices  = robot.brain.get('devices');
+      var devices = robot.brain.get('devices');
 
       if (!devices) {
         msg.send('No devices found.');
@@ -177,11 +177,11 @@ module.exports = function(robot) {
       else {
         devices.forEach(function(device) {
           if (device.out != false) {
-            msg.send("id: " + device.id +  " " + device.name + " - Checked out by " + device.out);
+            msg.send("id: " + device.id + " " + device.name + " - Checked out by " + device.out);
             return;
 
           }
-          msg.send("id: " + device.id +  " " + device.name);
+          msg.send("id: " + device.id + " " + device.name);
         });
       }
     });
