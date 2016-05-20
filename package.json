@@ -1,6 +1,6 @@
 {
   "name": "hubot-device-module",
-  "description": "A hubot script for device management",
+  "description": "A hubot script for device management and device tracking",
   "version": "1.0.1",
   "author": " <Robbins Cleozier>",
   "license": "MIT",

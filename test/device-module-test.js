@@ -35,7 +35,7 @@ describe('device-module', function() {
   	return expect(this.robot.respond).to.have.been.calledWith(/(add device) (.*)/i);
   });
 
-  it('registers listing devices', function() {
+  it('registers listing all devices', function() {
   	return expect(this.robot.respond).to.have.been.calledWith(/(devices)/i);
   });
 });
