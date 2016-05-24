@@ -5,12 +5,12 @@ Script to assist with device management. Allows users to list, checkout and retu
 ### Comands:
 
 ```
-- [bot] seed devices - Perform initial seed of devices
-- [bot] devices - Get list of devices
-- [bot] add device {name} - Add device by name
-- [bot] remove device {id} - Remove device by id
-- [bot] checkout {id} - Checkout device with id
-- [bot] return {id} - Return device with id
+- Hubot seed devices - Perform initial seed of devices
+- Hubot devices - Get list of devices
+- Hubot add device {name} - Add device by name
+- Hubot remove device {id} - Remove device by id
+- Hubot checkout {id} - Checkout device with id
+- Hubot return {id} - Return device with id
 ```
 
 ### Installation
