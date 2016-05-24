@@ -2,12 +2,12 @@
 // List of QA devices
 //
 // Commands:
-// Paulbot seed devices - Perform initial seed of devices
-// Paulbot devices - Get list of devices
-// Paulbot add device {name} - Add device by name
-// Paulbot remove device {id} - Remove device by id
-// Paulbot checkout {id} - Checkout device with id
-// Paulbot return {id} - Return device with id
+// Hubot seed devices - Perform initial seed of devices
+// Hubot devices - Get list of devices
+// Hubot add device {name} - Add device by name
+// Hubot remove device {id} - Remove device by id
+// Hubot checkout {id} - Checkout device with id
+// Hubot return {id} - Return device with id
 //
 // Author:
 // Robbins Cleozier
@@ -59,17 +59,21 @@ module.exports = function(robot) {
     };
 
     var setDevices = function(devices) {
-      robot.brain.set('devices', devices);
+      robot.brain.set('hubot-device:devices', devices);
+    };
+
+    var getDevices = function() {
+      return robot.brain.get('hubot-device:devices');
     };
 
     var titleCase = function(str) {
       return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
-    }
+    };
 
     robot.respond(/(return) (.*)/i, function(msg) {
       var deviceId = msg.match[2].trim().toLowerCase();
       var user = msg.message.user.name;
-      var devices = robot.brain.get('devices');
+      var devices = getDevices();
       var found = false;
 
       devices.forEach(function(device) {
@@ -93,7 +97,7 @@ module.exports = function(robot) {
     robot.respond(/(checkout) (.*)/i, function(msg) {
       var deviceId = msg.match[2].trim().toLowerCase();
       var user = msg.message.user.name;
-      var devices = robot.brain.get('devices');
+      var devices = getDevices();
       var found = false;
 
       devices.forEach(function(device) {
@@ -115,7 +119,7 @@ module.exports = function(robot) {
     });
 
     robot.respond(/(seed all devices)/i, function(msg) {
-      var devices = robot.brain.get('devices');
+      var devices = getDevices();
 
       if (!devices) {
 
@@ -124,7 +128,7 @@ module.exports = function(robot) {
           s.out = false;
         });
 
-        robot.brain.set('devices', seed);
+        setDevices(seed);
 
         msg.send("Successfully seeded devices");
       } else {
@@ -133,7 +137,7 @@ module.exports = function(robot) {
     });
 
     robot.respond(/(remove device) (.*)/i, function(msg) {
-      var devices = robot.brain.get('devices');
+      var devices = getDevices();
       var deviceId = msg.match[2].trim().toLowerCase();
 
       for(var i = devices.length - 1; i >= 0; i--) {
@@ -149,7 +153,7 @@ module.exports = function(robot) {
     });
 
     robot.respond(/(add device) (.*)/i, function(msg) {
-      var devices = robot.brain.get('devices');
+      var devices = getDevices();
       var name = titleCase(msg.match[2].trim().toLowerCase());
       var newDevice = {
         'id' : generateId(),
@@ -169,7 +173,7 @@ module.exports = function(robot) {
     });
 
     robot.respond(/(devices)/i, function(msg) {
-      var devices = robot.brain.get('devices');
+      var devices = getDevices();
 
       if (!devices) {
         msg.send('No devices found.');
