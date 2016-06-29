@@ -1,5 +1,5 @@
 // Description:
-// List of QA devices
+// Device management for Hubot
 //
 // Commands:
 // Hubot seed devices - Perform initial seed of devices
@@ -53,17 +53,19 @@ module.exports = function(robot) {
       },
     ];
 
-    // msg.message.user.name
+    // Redis storage key
+    var redisBrain = 'hubot-device:devices';
+
     var generateId = function() {
       return Math.random().toString(36).substr(2, 3);
     };
 
     var setDevices = function(devices) {
-      robot.brain.set('hubot-device:devices', devices);
+      robot.brain.set(redisBrain, devices);
     };
 
     var getDevices = function() {
-      return robot.brain.get('hubot-device:devices');
+      return robot.brain.get(redisBrain);
     };
 
     var titleCase = function(str) {
