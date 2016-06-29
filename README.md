@@ -5,7 +5,7 @@ Script to assist with device management. Allows users to list, checkout and retu
 ### Comands:
 
 ```
-- Hubot seed devices - Perform initial seed of devices
+- Hubot seed all devices - Perform initial seed of devices
 - Hubot devices - Get list of devices
 - Hubot add device {name} - Add device by name
 - Hubot remove device {id} - Remove device by id
