@@ -67,7 +67,17 @@ module.exports = function(robot) {
     };
 
     var titleCase = function(str) {
-      return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})
+      return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    };
+
+    var bold = function(text) {
+      if (robot.adapter.constructor.name === 'IrcBot') {
+        return "\x02"+text+"\x02";
+      } else if (robot.adapterName === 'slack') {
+        return "*"+text+"*";
+      } else {
+        return text;
+      }
     };
 
     robot.respond(/(return) (.*)/i, function(msg) {
@@ -103,7 +113,7 @@ module.exports = function(robot) {
       devices.forEach(function(device) {
         if (deviceId == device.id ) {
           found = true;
-          if (device.out != false) {
+          if (device.out !== false) {
             msg.send(device.name + " is currently checked out by " + device.out);
           } else {
             device.out = user;
@@ -174,19 +184,23 @@ module.exports = function(robot) {
 
     robot.respond(/(devices)/i, function(msg) {
       var devices = getDevices();
+      var message = '';
 
       if (!devices) {
         msg.send('No devices found.');
       }
       else {
         devices.forEach(function(device) {
-          if (device.out != false) {
-            msg.send("id: " + device.id + " " + device.name + " - Checked out by " + device.out);
-            return;
 
+          if (device.out !== false) {
+            message = message + "id: " + bold(device.id) + " " + device.name + " - Checked out by " + device.out + "\n";
+            return;
+          } else {
+            message = message + "id: " + bold(device.id) + " " + device.name + "\n";
           }
-          msg.send("id: " + device.id + " " + device.name);
         });
+
+        msg.send(message);
       }
     });
-}
+};
