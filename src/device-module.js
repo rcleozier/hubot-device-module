@@ -184,23 +184,23 @@ module.exports = function(robot) {
 
     robot.respond(/(devices)/i, function(msg) {
       var devices = getDevices();
-      var message = '';
 
       if (!devices) {
         msg.send('No devices found.');
       }
       else {
-        devices.forEach(function(device) {
+        var message = '';
 
+        devices.forEach(function(device) {
           if (device.out !== false) {
             message = message + "id: " + bold(device.id) + " " + device.name + " - Checked out by " + device.out + "\n";
-            return;
           } else {
             message = message + "id: " + bold(device.id) + " " + device.name + "\n";
           }
         });
 
         msg.send(message);
+        return;
       }
     });
 };
