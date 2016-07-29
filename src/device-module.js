@@ -53,19 +53,16 @@ module.exports = function(robot) {
       },
     ];
 
-    // Redis storage key
-    var redisBrain = 'hubot-device:devices';
-
     var generateId = function() {
       return Math.random().toString(36).substr(2, 3);
     };
 
     var setDevices = function(devices) {
-      robot.brain.set(redisBrain, devices);
+      robot.brain.set('hubot-device:devices', devices);
     };
 
     var getDevices = function() {
-      return robot.brain.get(redisBrain);
+      return robot.brain.get('hubot-device:devices');
     };
 
     var titleCase = function(str) {
